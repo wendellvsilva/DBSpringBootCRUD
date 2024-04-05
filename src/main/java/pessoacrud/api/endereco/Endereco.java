@@ -5,16 +5,22 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pessoacrud.api.pessoas.Pessoa;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
+@Table(name = "endereco")
 public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "endereco_id")
     private Long id;
 
     private String rua;
@@ -26,6 +32,15 @@ public class Endereco {
     private String cidade;
     private String estado;
     private String cep;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "enderecos_pessoas",
+            joinColumns = { @JoinColumn(name = "enderecos_fk") },
+            inverseJoinColumns = { @JoinColumn(name = "pessoas_fk") }
+    )
+   /* @JoinColumn(name = "pessoa_id", )*/
+    private Pessoa pessoa;
 
 
     public Endereco(DadosEndereco dados) {

@@ -1,4 +1,4 @@
-package pessoacrud.api.medicos;
+package pessoacrud.api.pessoas;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -8,23 +8,31 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pessoacrud.api.endereco.Endereco;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Table(name = "pessoa")
 public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pessoa_id")
     private Long id;
 
     @NotBlank
     private String nome;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private Endereco endereco;
+    private int idade;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "endereco_id")
+    private List<Endereco> endereco = new ArrayList<>();
+
 
     @NotBlank
     private String cpf;
@@ -42,5 +50,7 @@ public class Pessoa {
         if (dados.nome() != null) {
             this.nome = dados.nome();
         }
+
+
     }
 }

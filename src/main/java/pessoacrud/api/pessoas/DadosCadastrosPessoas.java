@@ -1,8 +1,8 @@
-package pessoacrud.api.medicos;
+package pessoacrud.api.pessoas;
 
 import jakarta.validation.constraints.NotBlank;
 import pessoacrud.api.endereco.DadosEndereco;
-
+import java.util.List;
 public record DadosCadastrosPessoas(
         Long id,
         @NotBlank
@@ -10,5 +10,5 @@ public record DadosCadastrosPessoas(
         @NotBlank
         String cpf,
         String dataNascimento,
-        DadosEndereco endereco) {
+        List<DadosEndereco> endereco) {
 }

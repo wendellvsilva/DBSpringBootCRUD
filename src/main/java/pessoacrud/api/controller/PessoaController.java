@@ -2,9 +2,9 @@ package pessoacrud.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import pessoacrud.api.medicos.DadosAtualizacaoPessoas;
-import pessoacrud.api.medicos.DadosCadastrosPessoas;
-import pessoacrud.api.medicos.DadosListagemPessoa;
+import pessoacrud.api.pessoas.DadosAtualizacaoPessoas;
+import pessoacrud.api.pessoas.DadosCadastrosPessoas;
+import pessoacrud.api.pessoas.DadosListagemPessoa;
 import pessoacrud.api.services.PessoaServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ public class PessoaController {
     private PessoaServices pessoaServices;
     @PostMapping
     @Transactional
-    public DadosCadastrosPessoas cadastrarMedico(@RequestBody @Valid DadosCadastrosPessoas dados) {
+    public DadosCadastrosPessoas cadastrarPessoa(@RequestBody @Valid DadosCadastrosPessoas dados) {
         return pessoaServices.cadastrarPessoa(dados);
     }
 

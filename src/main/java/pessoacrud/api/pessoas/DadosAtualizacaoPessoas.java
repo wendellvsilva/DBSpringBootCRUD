@@ -1,4 +1,4 @@
-package pessoacrud.api.medicos;
+package pessoacrud.api.pessoas;
 
 import jakarta.validation.constraints.NotNull;
 
