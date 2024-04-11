@@ -7,73 +7,103 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pessoacrud.api.pessoas.Pessoa;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity
 @Table(name = "endereco")
 public class Endereco {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "endereco_id")
     private Long id;
 
     private String rua;
-
     private int numero;
-
     private String bairro;
-
     private String cidade;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
     private String estado;
     private String cep;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "enderecos_pessoas",
-            joinColumns = { @JoinColumn(name = "enderecos_fk") },
-            inverseJoinColumns = { @JoinColumn(name = "pessoas_fk") }
-    )
-   /* @JoinColumn(name = "pessoa_id", )*/
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 
-
-    public Endereco(DadosEndereco dados) {
+    public Endereco(DadosCadastroEndereco dados) {
         this.bairro = dados.bairro();
         this.cep = dados.cep();
         this.rua = dados.rua();
         this.numero = dados.numero();
         this.cidade = dados.cidade();
         this.estado = dados.estado();
-
-
     }
 
-    public void atualizarInformacoes(DadosEndereco dados) {
-        if (dados.rua() != null) {
-            this.rua = dados.rua();
-        }
-        if (dados.numero() != 0) {//não pode colocar null em int
-            this.numero = dados.numero();
-        }
-        if (dados.bairro() != null) {
-            this.bairro = dados.bairro();
-        }
-        if (dados.cidade() != null) {
-            this.cidade = dados.cidade();
-        }
-        if (dados.estado() != null) {
-            this.estado = dados.estado();
-        }
-        if (dados.cep() != null) {
-            this.cep = dados.cep();
-        }
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 }
+
 
 
